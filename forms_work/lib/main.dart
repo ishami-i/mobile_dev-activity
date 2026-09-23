@@ -1,5 +1,27 @@
 import 'package:flutter/material.dart';
 
+// The absolute entrypoint function of your Flutter app
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Welcome App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        primarySwatch: Colors.blue,
+      ),
+      home: const WelcomePage(), // Boots directly into your form page
+    );
+  }
+}
+
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
@@ -12,24 +34,24 @@ class _WelcomePageState extends State<WelcomePage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // Password visibility
+  // Password visibility state
   bool hidePassword = true;
 
-  // Gender
+  // Gender selection state
   String? gender;
 
-  // Courses
+  // Course checkbox states
   bool machineLearning = false;
   bool fullStack = false;
   bool mobileApplication = false;
 
-  // Tuition pricing constants
+  // Tuition pricing rules
   final double baseTuition = 500.0;
   final double mlCost = 250.0;
   final double fullStackCost = 300.0;
   final double mobileCost = 200.0;
 
-  // Calculate dynamic tuition fee
+  // Dynamically computes total tuition based on selected options
   double get totalTuition {
     double total = baseTuition;
     if (machineLearning) total += mlCost;
@@ -38,7 +60,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return total;
   }
 
-  // Clear everything
+  // Resets all state values and clears inputs
   void clearForm() {
     setState(() {
       usernameController.clear();
@@ -51,7 +73,7 @@ class _WelcomePageState extends State<WelcomePage> {
     });
   }
 
-  // Always dispose controllers to prevent memory leaks
+  // Prevents serious memory leaks when navigating away from this page
   @override
   void dispose() {
     usernameController.dispose();
@@ -72,7 +94,7 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Username
+            // Username Field
             const Text(
               "Username",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -87,7 +109,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const SizedBox(height: 20),
 
-            // Password
+            // Password Field
             const Text(
               "Password",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -113,7 +135,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const SizedBox(height: 20),
 
-            // Gender
+            // Gender Field
             const Text(
               "Gender",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -145,7 +167,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const SizedBox(height: 20),
 
-            // Courses
+            // Courses Checkboxes
             const Text(
               "Courses",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -185,13 +207,14 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const SizedBox(height: 20),
 
-            // Tuition Display
+            // Summary Tuition Card
             Container(
               padding: const EdgeInsets.all(16),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey.shade400),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -213,13 +236,13 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const SizedBox(height: 30),
 
-            // Action Buttons
+            // Submission and Clear Action Layout
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle form submission logic here
+                      // Logic for successful validation goes here
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
